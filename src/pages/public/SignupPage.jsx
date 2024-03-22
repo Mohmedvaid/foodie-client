@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import { signup } from "../../store/authSlice";
 import useNavigateTo from "../../hooks/useNavigateTo";
 import AppForm from "../../components/AppItems/AppForm";
-import AuthWrapper from "./Wrapper";
+import AuthWrapper from "../../components/AuthWrapper";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;

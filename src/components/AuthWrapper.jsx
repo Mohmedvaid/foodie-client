@@ -1,5 +1,4 @@
 import React from "react";
-import TopMenu from "../../components/Menu/TopMenu";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -7,7 +6,6 @@ import Typography from "@mui/material/Typography";
 const AuthContainer = ({ title, title2, children }) => {
   return (
     <Box>
-      <TopMenu />
       <Container
         maxWidth="xs"
         sx={{

@@ -13,7 +13,8 @@ import Loader from "./components/AppItems/AppLoader";
 import OutletWrapper from "./routes/OutletWrapper";
 import PersistLogin from "./routes/PersistentLogin";
 import RequireAuth from "./routes/RequireAuth";
-const Missing = React.lazy(() => import("./pages/Missing"));
+
+const Missing = React.lazy(() => import("./pages/public/Missing"));
 
 const { menuItems, noAuthPages, authPages } = require("./config/pages");
 

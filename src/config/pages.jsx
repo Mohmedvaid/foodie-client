@@ -3,17 +3,10 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-import LoginPage from "../pages/auth/LoginPage";
-import SignupPage from "../pages/auth/SignupPage";
-import OnboardingPage from "../pages/OnboardingPage";
-import Unauthorized from "../pages/auth/Unauthorized";
-import HomePage from "../pages/HomePage";
-
-const UploadPage = lazy(() => import("../pages/UploadPage"));
-const ProfilePage = lazy(() => import("../pages/ProfilePage"));
-const EditProfilePage = lazy(() => import("../pages/EditProfilePage"));
-const CreatorPage = lazy(() => import("../pages/CreatorPage"));
-const TestPage = lazy(() => import("../pages/TestPage"));
+import LoginPage from "../pages/public/LoginPage";
+import SignupPage from "../pages/public/SignupPage";
+import Unauthorized from "../pages/public/Unauthorized";
+import HomePage from "../pages/protected/HomePage";
 
 const menuItems = [
   { path: "/", label: "Home", icon: <HomeIcon /> },
@@ -31,14 +24,6 @@ const noAuthPages = [
   { path: "/unauthorized", component: <Unauthorized /> },
 ];
 
-const authPages = [
-  { path: "/", component: <HomePage /> },
-  { path: "/onboarding", component: <OnboardingPage />, showMenu: false },
-  { path: "/upload", component: <UploadPage /> },
-  { path: "/profile", component: <ProfilePage /> },
-  { path: "/edit-profile", component: <EditProfilePage /> },
-  { path: "/profile/:username", component: <CreatorPage /> },
-  { path: "/video/:id", component: <TestPage /> },
-];
+const authPages = [{ path: "/", component: <HomePage /> }];
 
 export { menuItems, noAuthPages, authPages };

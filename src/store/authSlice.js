@@ -20,7 +20,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/auth/", credentials, {
+      const response = await axios.post("/auth/login", credentials, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
@@ -130,7 +130,7 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(refreshAuthToken.fulfilled, (state, action) => {
-        state.accessToken = action.payload.accessToken;
+        state.accessToken = action.payload.newToken;
         state.user = action.payload.user;
         state.roles = action.payload.roles;
         state.isLoading = false;

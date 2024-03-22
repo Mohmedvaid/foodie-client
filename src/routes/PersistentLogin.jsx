@@ -20,7 +20,10 @@ const PersistLogin = () => {
     if (isError) navigate("/login");
   }, [isError, navigate]);
 
-  if (isLoading && !isError) return <Loader />;
+  if (isLoading && !isError) {
+    console.log("======== RETURNING LOADER ========");
+    return <Loader />;
+  }
 
   return <Outlet />;
 };

@@ -12,7 +12,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import useTheme from "@mui/material/styles/useTheme";
 
 import { login, togglePersist } from "../../store/authSlice";
-import AuthWrapper from "./Wrapper";
+import AuthWrapper from "../../components/AuthWrapper";
 import useNavigateTo from "../../hooks/useNavigateTo";
 import AppForm from "../../components/AppItems/AppForm";
 
@@ -22,19 +22,19 @@ const Login = () => {
   const { persist } = useSelector((state) => state.auth);
   const navigateTo = useNavigateTo();
 
-  const [user, setUser] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, pwd]);
+  }, [email, password]);
 
   const handleTogglePersist = () => dispatch(togglePersist());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login({ username: user, password: pwd }))
+    dispatch(login({ email, password }))
       .unwrap()
       .then((data) => navigateTo(data.isInitialLogin ? "/onboarding" : "/"))
       .catch((err) => {
@@ -48,8 +48,8 @@ const Login = () => {
       id: "username",
       label: "Username",
       type: "text",
-      value: user,
-      onChange: (e) => setUser(e.target.value),
+      value: email,
+      onChange: (e) => setEmail(e.target.value),
       required: true,
       autoComplete: "username",
     },
@@ -57,8 +57,8 @@ const Login = () => {
       id: "password",
       label: "Password",
       type: "password",
-      value: pwd,
-      onChange: (e) => setPwd(e.target.value),
+      value: password,
+      onChange: (e) => setPassword(e.target.value),
       required: true,
       autoComplete: "current-password",
     },

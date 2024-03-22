@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Button from "../components/AppItems/AppButton";
+import Button from "../../components/AppItems/AppButton";
 
 const Missing = () => {
   const navigate = useNavigate();
