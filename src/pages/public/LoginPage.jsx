@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+// UI Components
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -11,7 +11,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import useTheme from "@mui/material/styles/useTheme";
 
-import { login, togglePersist } from "../../store/authSlice";
+import { login, togglePersist } from "../../store/auth.slice";
 import AuthWrapper from "../../components/AuthWrapper";
 import useNavigateTo from "../../hooks/useNavigateTo";
 import AppForm from "../../components/AppItems/AppForm";
@@ -33,6 +33,7 @@ const Login = () => {
   const handleTogglePersist = () => dispatch(togglePersist());
 
   const handleSubmit = async (e) => {
+    console.log("Clicked");
     e.preventDefault();
     dispatch(login({ email, password }))
       .unwrap()
@@ -109,7 +110,7 @@ const Login = () => {
       </Box>
       <Box sx={{ textAlign: "center", mt: 3 }}>
         <Typography variant="body2">
-          Don't have an account?{" "}
+          {"Don't have an account? "}
           <Typography
             variant="body2"
             component="span"

@@ -6,7 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import useSystemTheme from "./hooks/useSystemTheme";
-import { store } from "./store/store";
+import store from "./store/store";
 import createTheme from "./config/theme";
 import Layout from "./components/Layout";
 import Loader from "./components/AppItems/AppLoader";

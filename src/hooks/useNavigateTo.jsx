@@ -8,7 +8,7 @@ const useNavigateTo = () => {
   const navigateTo = (
     path,
     options = { replace: true },
-    ignoreFrom = false
+    ignoreFrom = false,
   ) => {
     const from = location.state?.from?.pathname;
     if (from && !ignoreFrom) {

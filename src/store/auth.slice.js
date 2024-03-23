@@ -1,6 +1,11 @@
-// frontend/src/store/authSlice.js
+// frontend/src/store/auth.slice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { axiosPrivateForFiles } from "../config/axios";
+import {
+  axiosInstance,
+  axiosPrivateForFiles,
+  axiosPrivate,
+} from "../config/axios";
+
 const REGISTER_URL = "/auth/signup";
 
 const initialState = {
@@ -20,7 +25,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/auth/login", credentials, {
+      const response = await axiosInstance.post("/auth/login", credentials, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
@@ -29,7 +34,7 @@ export const login = createAsyncThunk(
       if (err.response) return rejectWithValue(err.response?.data);
       return rejectWithValue(err);
     }
-  }
+  },
 );
 
 // Async thunk for refreshing token
@@ -37,18 +42,17 @@ export const refreshAuthToken = createAsyncThunk(
   "auth/refreshAuthToken",
   async (_, { rejectWithValue, getState }) => {
     const state = getState();
-    if (!state.auth.persist) return;
+    if (!state.auth.persist) return null;
 
     try {
-      const response = await axios.get("/auth/refresh", {
+      const response = await axiosInstance.get("/auth/refresh", {
         withCredentials: true,
       });
       return response.data.data;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response.data);
     }
-  }
+  },
 );
 
 // Async thunk for signup
@@ -56,7 +60,7 @@ export const signup = createAsyncThunk(
   "auth/signup",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(REGISTER_URL, userData, {
+      const response = await axiosInstance.post(REGISTER_URL, userData, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
@@ -65,7 +69,7 @@ export const signup = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
-  }
+  },
 );
 
 // Async thunk update user
@@ -78,25 +82,42 @@ export const updateUser = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
-  }
+  },
+);
+
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      await axiosPrivate.get("/auth/logout", { withCredentials: true });
+      return true;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
 );
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.accessToken = null;
-      state.roles = [];
-      localStorage.removeItem("persist");
-    },
+    // logout: (state) => {
+    //   state.user = null;
+    //   state.accessToken = null;
+    //   state.roles = [];
+    //   localStorage.removeItem("persist");
+    // },
     togglePersist: (state) => {
       state.persist = !state.persist;
       localStorage.setItem("persist", state.persist);
+      return state;
     },
     setInitialLoading: (state, action) => {
       state.initialLoading = action.payload;
+      return {
+        ...state,
+        initialLoading: action.payload,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -115,7 +136,6 @@ const authSlice = createSlice({
         state.isInitialLogin = action.payload.isInitialLogin;
       })
       .addCase(login.rejected, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload; // TODO: create a axios error handler utility
@@ -175,7 +195,7 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.user = state.user;
+        state.user = action.payload;
         state.isLoading = false;
         state.isError = false;
         state.errorMessage = "";
@@ -185,8 +205,28 @@ const authSlice = createSlice({
         state.isError = true;
         state.errorMessage = action.payload.message;
       });
+
+    // Handle logout thunks
+    builder
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null;
+        state.accessToken = null;
+        state.roles = [];
+        state.isLoading = false;
+        state.isError = false;
+        state.errorMessage = "";
+        localStorage.removeItem("persist");
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload.message;
+      });
   },
 });
 
-export const { logout, togglePersist } = authSlice.actions;
+export const { togglePersist } = authSlice.actions;
 export default authSlice.reducer;

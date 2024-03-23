@@ -26,8 +26,8 @@ const sharedStyles = {
   secondary: {
     main: "#f86772",
   },
-  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  headerFontFamily: '"Montserrat", "Helvetica", "Arial", sans-serif', // Font for headers
+  fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
+  headerFontFamily: `"Montserrat", "Helvetica", "Arial", sans-serif`,
   borderRadius: 8, // Example of a shared style value
 };
 

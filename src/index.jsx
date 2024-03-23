@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // NOTE: strict mode makes double requests should not happen in prod build
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <Routes>
@@ -18,5 +18,5 @@ root.render(
         </Routes>
       </AuthProvider>
     </BrowserRouter>
-  // </React.StrictMode>
+  </React.StrictMode>,
 );

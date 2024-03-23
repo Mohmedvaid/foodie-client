@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-import { signup } from "../../store/authSlice";
+import { signup } from "../../store/auth.slice";
 import useNavigateTo from "../../hooks/useNavigateTo";
 import AppForm from "../../components/AppItems/AppForm";
 import AuthWrapper from "../../components/AuthWrapper";
@@ -38,15 +38,14 @@ const SignupPage = () => {
 
     if (!v1 || !v2 || !v3 || !v4) {
       setErrMsg("Invalid Entry");
-      return;
+      return false;
     }
 
     try {
       await dispatch(signup({ username: user, password: pwd, email }))
         .unwrap()
-        .then((data) => {
-          navigateTo("/onboarding");
-        });
+        .then(() => navigateTo("/onboarding"));
+      return true;
     } catch (err) {
       if (err?.message) {
         setErrMsg(err.message);
@@ -55,6 +54,7 @@ const SignupPage = () => {
       } else {
         setErrMsg("Registration Failed");
       }
+      return false;
     }
   };
 

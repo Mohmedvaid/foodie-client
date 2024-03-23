@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";

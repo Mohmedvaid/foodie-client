@@ -1,7 +1,7 @@
 import React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import { useTheme } from "@mui/material/styles";
+import PropTypes from "prop-types";
 
 const styles = {
   container: {
@@ -21,6 +21,17 @@ const Loader = ({ center = true, sx }) => {
       <CircularProgress size={50} color="secondary" />
     </Box>
   );
+};
+
+// dont use objects for prop types
+Loader.propTypes = {
+  center: PropTypes.bool,
+  sx: PropTypes.object,
+};
+
+Loader.defaultProps = {
+  center: true,
+  sx: {},
 };
 
 export default Loader;
