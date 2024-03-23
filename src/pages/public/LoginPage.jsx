@@ -33,7 +33,6 @@ const Login = () => {
   const handleTogglePersist = () => dispatch(togglePersist());
 
   const handleSubmit = async (e) => {
-    console.log("Clicked");
     e.preventDefault();
     dispatch(login({ email, password }))
       .unwrap()

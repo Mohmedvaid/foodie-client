@@ -18,10 +18,6 @@ const AppForm = ({ fields, handleSubmit, submitButtonText, errMsg }) => {
     setFocusedField(null);
   };
 
-  const handleClick = () => {
-    console.log("clicked");
-  };
-
   return (
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
       {fields.map((field, index) => (
@@ -65,7 +61,6 @@ const AppForm = ({ fields, handleSubmit, submitButtonText, errMsg }) => {
         variant="contained"
         color="primary"
         sx={{ mt: 2 }}
-        onClick={handleClick}
       >
         {submitButtonText}
       </AppButton>

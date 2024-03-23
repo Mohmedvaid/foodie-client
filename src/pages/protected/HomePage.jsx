@@ -9,7 +9,6 @@ const HomePage = () => {
   const handleLogout = async () => {
     dispatch(logout())
       .unwrap()
-      .then((data) => console.log(data))
       .catch((err) => console.error(err));
   };
 
